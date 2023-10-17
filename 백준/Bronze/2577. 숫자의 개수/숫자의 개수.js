@@ -1,16 +1,19 @@
-const nums = require("fs")
+const input = require("fs")
   .readFileSync("/dev/stdin")
   .toString()
+  .trim()
   .split("\n");
 
-const result = String(nums[0] * nums[1] * nums[2]);
+const temp = String(input[0] * input[1] * input[2]);
 
-for (let i = 0; i <= 9; i++) {
-  let count = 0;
-  for (let j = 0; j < result.length; j++) {
-    if (result[j] == i) {
-      count++;
-    }
-  }
-  console.log(count);
+const arr = Array.from({ length: 10 }, (e, i) => {
+  return 0;
+});
+
+for (i of temp) {
+  arr[i] += 1;
+}
+
+for (i of arr) {
+  console.log(i);
 }
