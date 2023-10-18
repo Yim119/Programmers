@@ -6,30 +6,39 @@ const input = require("fs")
 
 const condition = input.shift();
 
-const n = condition.split(" ")[0];
 const k = condition.split(" ")[1];
 
 let arr = input.map((e) => {
-  return e.split(" ");
+  return e.trim().split(" ");
 });
 
 arr.sort((a, b) => {
   if (a[1] === b[1]) return a[0] - b[0];
-  else return a[1] - b[1];
+  return a[1] - b[1];
 });
 
 let tick = 0;
 
-while (arr.length > 1) {
-  for (let i = 0; i < k; i++) {
-    const node = arr.shift();
+while (arr.length) {
+  const stack = [];
 
-    if (node[0] !== arr[0][0] || node[1] !== arr[0][1]) break;
+  stack.push(arr.shift());
+
+  if (arr.length === 0) {
+    tick++;
+    break;
+  }
+
+  for (let i = 0; i < k - 1; i++) {
+    if (arr.length !== 0) stack.unshift(arr.shift());
+
+    if (stack[0][0] !== stack[1][0] || stack[0][1] !== stack[1][1]) {
+      arr.unshift(stack.shift());
+      break;
+    }
   }
 
   tick++;
 }
-
-tick++;
 
 console.log(tick);
